@@ -3,7 +3,7 @@ var db = require("../db/db.json");
 var fs= require("fs");
 
 app.get("/api/notes", function(req,res){
-   db = JSON.parse(fs.readFileSync("/db/db.json")) || []
+   db = JSON.parse(fs.readFileSync("./db/db.json")) || []
    console.log("Get", db)
    res.status(200).json(db)
 });
@@ -16,7 +16,7 @@ app.post("/api/notes", function(req,res){
         text: req.body.text
     }
     db.push(newData)
-    fs.writeFileSync("db/db.json", JSON.stringify(db), function(err,data){
+    fs.writeFileSync("./db/db.json", JSON.stringify(db), function(err,data){
         if (err) throw err;
         console.log("POST",db)
     })
@@ -29,7 +29,7 @@ app.post("/api/notes", function(req,res){
    updatedNotesList = db.filter( (record) => record.id !== req.params.id)
    console.log(updatedNotesList)
     db = updatedNotesList
-    fs.writeFileSync("db/db.json", JSON.stringify(db), function(err,data){
+    fs.writeFileSync("./db/db.json", JSON.stringify(db), function(err,data){
         if (err) throw err;
         console.log("POST",db)
     })
