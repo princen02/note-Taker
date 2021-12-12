@@ -26,12 +26,13 @@ app.post("/api/notes", function(req,res){
 
  app.delete("/api/notes/:id", function(req,res){
     var updatedNotesList = []
-   updatedNotesList = db.filter( (record) => record.id !== req.params.id)
-   console.log(updatedNotesList)
+    console.log("re",req.params.id)
+   updatedNotesList = db.filter( (record) => record.id != req.params.id)
+   console.log("Delete",updatedNotesList)
     db = updatedNotesList
     fs.writeFileSync("./db/db.json", JSON.stringify(db), function(err,data){
         if (err) throw err;
-        console.log("POST",db)
+        console.log("Del rec",db)
     })
     res.status(200).json(db)
  });
